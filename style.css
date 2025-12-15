@@ -1,105 +1,279 @@
+/* =====================================================
+   DESIGN SYSTEM — DANIEL BISHOY
+   STEM • PHYSICS • SYSTEMS • EDUCATION
+   ===================================================== */
+
+/* ---------- Root Variables ---------- */
 :root {
-  --bg: #0e0f13;
-  --fg: #eaeaf0;
-  --muted: #9aa0b3;
-  --accent: #5eead4;
-  --accent-2: #a78bfa;
+  --bg-main: #0b0d12;
+  --bg-panel: #121622;
+  --bg-soft: rgba(255,255,255,0.03);
+
+  --text-main: #e7e9ee;
+  --text-muted: #9aa0b2;
+
+  --accent-a: #5eead4;   /* cyan */
+  --accent-b: #a78bfa;   /* violet */
+  --accent-c: #facc15;   /* energy */
+
+  --border-soft: rgba(255,255,255,0.08);
 }
 
+/* ---------- Global Reset ---------- */
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   font-family: 'Ubuntu', sans-serif;
-  background: var(--bg);
-  color: var(--fg);
-  line-height: 1.7;
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.75;
+  overflow-x: hidden;
 }
 
+/* ---------- Living Background ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(800px at 15% 20%, rgba(94,234,212,0.10), transparent 45%),
+    radial-gradient(700px at 85% 80%, rgba(167,139,250,0.10), transparent 45%);
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* ---------- Typography ---------- */
 h1, h2, h3 {
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
+  margin: 0 0 20px;
 }
 
+h1 {
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+}
+
+h2 {
+  font-size: 1.6rem;
+  color: var(--accent-b);
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+p {
+  margin: 0 0 20px;
+  color: var(--text-main);
+}
+
+strong {
+  color: var(--accent-a);
+}
+
+/* ---------- Hero ---------- */
 .hero {
+  min-height: 95vh;
+  padding: 120px 10%;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  padding: 80px 10%;
-  gap: 60px;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 70px;
+  align-items: center;
 }
 
-.hero h1 {
-  font-size: 3rem;
+.hero-left h1::after {
+  content: "";
+  display: block;
+  width: 140px;
+  height: 4px;
+  margin-top: 25px;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
 }
 
 .subtitle {
-  color: var(--muted);
-  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin-top: 12px;
 }
 
-.intro span {
-  color: var(--accent);
+.hero-right {
+  background: var(--bg-panel);
+  padding: 36px;
+  border-left: 4px solid var(--accent-a);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
 }
 
+.hero-right span {
+  color: var(--accent-c);
+}
+
+/* ---------- Sections ---------- */
 .section {
-  padding: 70px 10%;
+  padding: 110px 10%;
+  position: relative;
 }
 
-.section h2 {
-  margin-bottom: 20px;
-  color: var(--accent-2);
+.section::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  top: 60px;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-a), transparent);
 }
 
+/* ---------- Split Layout ---------- */
 .split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 70px;
 }
 
-ul {
-  padding-left: 20px;
+.split ul {
+  padding-left: 18px;
 }
 
-.timeline .event {
-  border-left: 2px solid var(--accent);
-  padding-left: 20px;
-  margin-bottom: 30px;
+.split li {
+  margin-bottom: 10px;
+  color: var(--text-muted);
 }
 
+/* ---------- Timeline ---------- */
+.timeline {
+  display: grid;
+  gap: 50px;
+}
+
+.event {
+  position: relative;
+  padding-left: 40px;
+}
+
+.event::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  background: var(--accent-a);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(94,234,212,0.15);
+}
+
+.event h3 {
+  color: var(--accent-a);
+}
+
+/* ---------- Projects ---------- */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px;
 }
 
 .project {
-  padding: 20px;
-  border: 1px solid #1f2937;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  padding: 26px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.project::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(94,234,212,0.12),
+    transparent 60%
+  );
+  transform: translateX(-100%);
+}
+
+.project:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.6s ease;
 }
 
 .project:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
+  transform: translateY(-6px);
+  border-color: var(--accent-a);
 }
 
+/* ---------- Inline List ---------- */
 .inline-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  list-style: none;
+  gap: 18px;
   padding: 0;
+  list-style: none;
 }
 
+.inline-list li {
+  padding: 8px 14px;
+  background: var(--bg-soft);
+  border-left: 3px solid var(--accent-b);
+}
+
+/* ---------- Footer ---------- */
 footer {
-  padding: 40px 10%;
-  border-top: 1px solid #1f2937;
-  color: var(--muted);
+  padding: 50px 10%;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-muted);
 }
 
-a {
-  color: var(--accent);
+footer a {
+  color: var(--accent-a);
   text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+
+footer a:hover {
+  border-color: var(--accent-a);
+}
+
+/* ---------- Scroll Reveal ---------- */
+.section {
+  opacity: 0;
+  transform: translateY(40px) rotateX(4deg);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
 }
